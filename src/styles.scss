@@ -1,0 +1,210 @@
+// // Custom Theming for Angular Material
+// // For more information: https://material.angular.io/guide/theming
+// @import '~@angular/material/theming';
+// // Plus imports for other components in your app.
+
+// // Include the common styles for Angular Material. We include this here so that you only
+// // have to load a single css file for Angular Material in your app.
+// // Be sure that you only ever include this mixin once!
+// @include mat-core();
+
+// // Define the palettes for your theme using the Material Design palettes available in palette.scss
+// // (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// // hue. Available color palettes: https://material.io/design/color/
+// $fayez-certify-primary: mat-palette($mat-indigo);
+// $fayez-certify-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// // The warn palette is optional (defaults to red).
+// $fayez-certify-warn: mat-palette($mat-red);
+
+// // Create the theme object (a Sass map containing all of the palettes).
+// $fayez-certify-theme: mat-light-theme($fayez-certify-primary, $fayez-certify-accent, $fayez-certify-warn);
+
+// // Include theme styles for core and each component used in your app.
+// // Alternatively, you can import and @include the theme mixins for each component
+// // that you are using.
+// @include angular-material-theme($fayez-certify-theme);
+
+// /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+* {
+  font-family: Roboto, 'Helvetica Neue',sans-serif;
+}
+
+
+.cursor-pointer {
+  cursor: pointer!important;
+}
+
+.font-size-small {
+  font-size: small;
+}
+
+.font-weight-600 {
+  font-weight: 600!important;
+}
+
+.font-weight-700 {
+  font-weight: 700!important;
+}
+
+.color-primary {
+  color: #8c2b5c;
+}
+
+.color-gray {
+  color: #aaa;
+}
+
+.pb-10 {
+  padding-bottom: 10px !important;
+}
+
+.pb-20 {
+  padding-bottom: 20px !important;
+}
+.p-5 {
+  padding: 5px !important;
+}
+.p-10 {
+  padding: 10px !important;
+}
+
+.p-20 {
+  padding: 20px !important;
+}
+
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.m-10 {
+  margin: 10px !important;
+}
+
+.mr-10 {
+  margin-right: 10 !important;
+}
+
+.m-0 {
+  margin: 0 !important;
+}
+.mt-10{
+  margin-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.min-height{
+  height: 300px;
+}
+@import 'assets/font/icomoon/style.scss';
+
+// Expert styles
+
+@import 'assets/theme/theme';
+
+.reviews-container {
+  position: relative;
+  padding: 16px;
+  text-align: center;
+  overflow: hidden;
+
+  .rev-item {
+    margin: 30px;
+    .rating {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+
+      i {
+        font-size: 3.7rem;
+      }
+      .rating-name {
+        padding-top: 5px;
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: map-get($mat-accent, main);
+      }
+    }
+    .expert {
+      width: 100%;
+      padding: 16px;
+      .verified-by {
+        color: map-get($mat-accent, main);
+        font-size: 0.8rem;
+      }
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+      .expert-name {
+        padding-top: 0px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #444;
+      }
+    }
+
+    .claims {
+      padding: 16px;
+      h4 {
+        text-align: left;
+      }
+    }
+  }
+  .navs {
+    position: relative;
+    .nav {
+      padding: 10px;
+      font-size: 33px;
+      display: inline-flex;
+      align-items: center;
+      &.hide {
+        color: map-get($mat-accent, main);
+        &:hover {
+          cursor: unset;
+        }
+      }
+      &.right {
+        transform: translateX(-10px);
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .counter-holder {
+    position: absolute;
+    right: 65px;
+    z-index: 999;
+    top: 48px;
+
+    // .counter {
+    //   padding-top: 49px;
+    // }
+  }
+}
+
+.color-warn {
+  color: map-get($mat-warn, main);
+}

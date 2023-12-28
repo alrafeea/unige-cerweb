@@ -1,0 +1,30 @@
+<div id="login-form" [formGroup]="loginForm" class="text-center form-inputs">
+  <h2 class="title color-primary">Sign In</h2>
+  <div class="font-size-small warn hidden color-warn pb-2">
+    {{errorMessage}}
+  </div>
+  <div class="field w-100">
+    <mat-icon>mail</mat-icon>
+    <input class="w-100" matInput placeholder="Email" formControlName="email" value="" />
+  </div>
+
+
+  <div class="w-100" style="position: relative;">
+    <img src="../../assets/images/Password_Signin.svg" width="22px" class="svg-inputIcon">
+    <input class="w-100" matInput placeholder="Password" formControlName="password" value=""
+      [type]="visibility ? 'text' : 'password'" 
+            (keyup.enter)="onEnter()"/>
+    <mat-icon (click)="visibility =!visibility" class="right-icon">{{visibility ? 'visibility_off': 'visibility'}}
+    </mat-icon>
+  </div>
+
+  <button class="mat-raised-button cursor-pointer w-100 m-0 mt-3" (click)="login()" color="primary"
+    [disabled]="loginForm.invalid">
+    Sign in
+  </button>
+
+  <div routerLink="/reset-password" class="font-size-small color-gray mt-4 cursor-pointer text-left">Forgot Password?</div>
+
+  <div routerLink="/signup" class="font-size-small color-gray my-3 cursor-pointer text-left">Create Account<mat-icon class="p-0 w-10">arrow_right_alt</mat-icon></div>
+
+

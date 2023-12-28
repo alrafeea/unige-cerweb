@@ -1,0 +1,21 @@
+@import '../../assets/theme/theme';
+.social-button {
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 10px 10px;
+  width: 200px;
+  i {
+    font-size: 1.5rem;
+    margin-right: 15px;
+  }
+  &.google {
+    background-color: #ca4130;
+  }
+
+  &.facebook {
+    background-color: #3b63bf;
+  }
+  &.twitter {
+    background-color: map-get($mat-primary, main);
+  }
+}

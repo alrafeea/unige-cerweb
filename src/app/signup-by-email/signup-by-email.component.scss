@@ -1,0 +1,105 @@
+#singnup-form {
+  padding: 0 15%;
+
+  .field {
+    width: 100%;
+    position: relative;
+    margin-bottom: 1rem;
+
+    .datepicker-toggle {
+      position: absolute;
+      right: 8px;
+      top: 2px;
+      color: #8c2b5c;
+    }
+  }
+
+  .title {
+    margin-top: 3rem;
+    margin-bottom: 6rem;
+  }
+
+  mat-form-field {
+    position: relative;
+    // width:100%;
+  }
+
+  .input-fill input {
+    background: #f1f1f1;
+    border: 0; // 1px solid gray
+    border-radius: 20px;
+    padding: 14px 66px;
+    width: 100%;
+
+    &[formControlName=firstName],
+    &[formControlName=lastName] {
+      padding: 14px 44px;
+    }
+
+  }
+
+  button.mat-raised-button {
+    margin-top: 1rem;
+    color: white;
+    background: linear-gradient(to right, #6a1a3b 0%, #be3365 100%);
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 4px 0;
+    width: 100%;
+
+    &:disabled {
+      font-weight: bold;
+      color: gray;
+      background: #aaa;
+      border: 0;
+    }
+  }
+
+  .w-10 {
+    width: 10px !important;
+  }
+
+  .mat-checkbox-label {
+    font-size: 14px;
+  }
+
+  .svg-inputImg {
+    position: absolute;
+    left: -30px;
+    top: -8px;
+  }
+
+  .mat-error {
+    letter-spacing: 0px;
+    font-size: 14px;
+  }
+
+  .select-optional {
+    color: #999;
+    padding: 0 5px !important;
+
+  }
+
+  .select-optional > option {
+    color: #555;
+  }
+
+  .select-optional > option[value=""] {
+    color: #999;
+  }
+  .custom-error{
+    text-align: left;
+    margin-top: -20px;
+    margin-bottom: 0;
+  }
+  .svg-inputIcon{
+    position: absolute;
+    left: 16px;
+    top: 8px;
+  }
+
+}
+.mat-checkbox-layout{
+  margin: 0 5px 3px 0 !important;
+}
+

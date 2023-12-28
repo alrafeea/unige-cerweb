@@ -1,0 +1,101 @@
+.mat-raised-button{
+  padding: 0 16px;
+}
+.expert-review-counter{
+  padding: 0 4px 0 45px;
+}
+.expert-logo{
+  width: 45px !important;
+  height: auto !important;
+  display: inline-block;
+}
+
+.rating-icon {
+    position: inherit;
+    font-size: 342px;
+    top: 0;
+    float: right;
+    opacity: 0.1;
+    overflow: hidden;
+    width: 250px;
+    
+}
+.pre-line{
+  white-space: pre-line;
+}
+.min-height-345{
+  min-height: 344px;
+
+}
+// .reviews-container .ng-star-inserted{
+    
+//     // display: inline !important;
+// }
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.export-results-headers-align .mat-expansion-panel-header-title,
+.export-results-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.export-results-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.export-results-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.f-text{
+  color: darkgray;
+  font-size: 15px;
+}
+.f-text--s{
+  color: darkgray;
+  font-size: 12px;
+}
+.txt-small{
+  font-size: 11px;
+  padding-left: 8px;
+}
+.mlist-item{
+  height: 25px !important;
+}
+.f-que{
+  padding: 6px 0px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: black;
+}
+.f-ans{
+  padding: 6px 2px !important;
+  color: #787878;
+}
+
+.mat-accordion .mat-expansion-panel{
+  margin-bottom: 10px;
+  // background: #8c2b5c03;
+}
+
+.rel-lbl-1{
+  background: linear-gradient(90deg,rgba(255,255,255,1) 50%, rgba(0,148,68,0.2) 100%);
+  border-top-right-radius: 11px;
+}
+.rel-lbl-2{
+  background: linear-gradient(90deg,rgba(255,255,255,1) 50%, rgba(247,148,29,0.2) 100%);
+  border-top-right-radius: 11px;
+}
+.rel-lbl-3{
+  background: linear-gradient(90deg,rgba(255,255,255,1) 50%, rgba(208,32,46,0.2) 100%);
+  border-top-right-radius: 11px;
+}
+.mat-expansion-panel-header{
+  border-bottom: 1px solid rgb(140, 43, 92);
+}
+
+.expansion-panel-body {
+  padding-top: 5px !important;
+}

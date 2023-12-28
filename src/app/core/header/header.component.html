@@ -1,0 +1,38 @@
+<div class="header-container" *ngIf="!loading">
+  <mat-toolbar class="mat-toolbar">
+    <span class="f-spacer"></span>
+    <div *ngIf="user != null" class="p-2">
+      <button mat-button [matMenuTriggerFor]="profileMenu" aria-label="User info">
+        <img *ngIf="user.photoURL" class="user-thumb icon-header" [src]="user.photoURL" alt="" width="25" />
+        <mat-icon *ngIf="!user.photoURL">person</mat-icon>
+        <ng-container>{{ user.displayName}}</ng-container>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>person_outline </mat-icon>
+          <span><a routerLink="/user-profile">
+              <ng-container>
+                {{ user.email}} {{'\n' }}
+              </ng-container>
+              <br>
+              <span *ngIf="user.roles && user.roles.expert" class="exprtName">( {{ user.expert.name }} )</span>
+            </a>
+          </span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>space_dashboard </mat-icon>
+          <span>My Activity</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>article</mat-icon>
+          <span>Saved News</span>
+        </button>
+        <button mat-menu-item (click)="onClickSignOut()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sign Out</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+</div>

@@ -1,0 +1,7 @@
+<img
+  *ngIf="imageName"
+  [ngClass]="className"
+  [src]="url | async"
+  [alt]="alt"
+  (click)="runClick()"
+/>

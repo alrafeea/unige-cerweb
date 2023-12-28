@@ -1,0 +1,48 @@
+.header {
+  height: 10%;
+  border-bottom: 1px solid #8c2b5c;
+  background-color: white;
+}
+.header-container {
+  height: 7%;
+}
+
+.back-icon{
+  margin-top: -15px;
+}
+.icon-header {
+  margin-left: -24px;
+}
+
+.exprtName {
+  color: gray;
+  font-size: 14px;
+}
+.nav-item::marker{
+  color: transparent;
+}
+.f-spacer {
+  flex-grow: 1;
+}
+.mat-toolbar{
+  position: fixed;
+  z-index: 999;
+}
+.mat-toolbar{
+  color: white;
+    background: #8c2b5c;
+    border-bottom: 1px solid #8c2b5c;
+    padding: 0 !important;
+}
+.mat-toolbar .mat-icon{
+  position: inherit;
+  color: white;
+  height: 24px  !important;
+  width: 24px !important;
+
+}
+:host ::ng-deep  .mat-menu-content .mat-icon{
+  position: inherit;
+  height: 24px  !important;
+  width: 24px !important;
+}

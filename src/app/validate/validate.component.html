@@ -1,0 +1,14 @@
+<div *ngIf="loading || waitFirUser">
+  <app-embeded-loader></app-embeded-loader>
+</div>
+<div *ngIf="user !== null; else login">
+  <app-expert-validate
+    *ngIf="isExpert === true && !loading"
+  ></app-expert-validate>
+  <app-user-validate *ngIf="isExpert !== true && !loading"></app-user-validate>
+</div>
+<ng-template #login>
+  <div fxLayout="row" class="min-height" fxLayoutAlign="center center">
+    <app-user-summary></app-user-summary>
+  </div>
+</ng-template>

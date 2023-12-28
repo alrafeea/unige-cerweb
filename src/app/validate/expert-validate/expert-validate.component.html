@@ -1,0 +1,259 @@
+<ng-container *ngIf="!submitted; else submittedForm">
+  <div *ngIf="loading === false; else loadingTemplate">
+    <div *ngIf="alreadyValidated === false; else alreadyValidatedTemplate">
+      <div [formGroup]="validateForm" class="p-20">
+        <h4 class="text-center color-primary p-2">Certification</h4>
+        <div class="text-right">
+          <a class="color-link  pr-3 cursor-pointer" data-toggle="modal" data-target=".post-source-modal-sm">Source</a>
+          <div class="modal fade post-source-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog  text-left">
+              <div class="modal-content p-3">
+                <p class="text-muted">Source:</p>
+                <p class="text-word-wrap">{{postLink}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div>
+          <h5 class="pt-4">Rating</h5>
+        </div>
+        <div
+          fxLayout="row wrap"
+          class="mb-20"
+          fxLayoutAlign="start start"
+          fxLayoutGap="10px"
+        >
+          <div
+            fxFlex="45"
+            fxLayout="row"
+            *ngFor="let item of types$ | async as list"
+            fxLayoutAlign="start center"
+            fxLayoutGap="5"
+            (click)="chooseRating(item)"
+            class="type-item"
+            [class.selected]="
+              type !== null && type.value !== null && type.value.id == item.id
+            "
+            [class.not-selected]="
+              type == null || type.value == null || type.value.id != item.id
+            "
+          >
+            <div fxFlex="35%">
+              <i class="cert-icon-{{ item.icon }}"> </i>
+            </div>
+            <div fxFlex="65%" class="type-name">
+              {{ item.name }}
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider> -->
+        <div class="mb-20 mt-20 full-width">
+          <h4>Summary</h4>
+          <mat-form-field class="full-width mb-10" appearance="outline">
+            <mat-label>What do you think is TRUE about this post?</mat-label>
+            <textarea #inputsummary matInput formControlName="summary" rows="3" maxlength="550"></textarea>
+            <mat-hint align="end">{{inputsummary.value?.length || 0}}/550</mat-hint>
+          </mat-form-field>
+          <h4>Context</h4>
+          <mat-form-field class="full-width mb-10" appearance="outline">
+            <mat-label>What do you think is FALSE about this post?</mat-label>
+            <textarea matInput formControlName="context" rows="3" maxlength="550" #inputcontext></textarea>
+            <mat-hint align="end">{{inputcontext.value?.length || 0}}/550</mat-hint>
+          </mat-form-field>
+          <h4>Analysis</h4>
+          <mat-form-field class="full-width mb-10" appearance="outline">
+            <mat-label>What do you think is FALSE about this post?</mat-label>
+            <textarea matInput formControlName="analysis" rows="3" maxlength="550" #inputanalysis></textarea>
+            <mat-hint align="end">{{inputanalysis.value?.length || 0}}/550</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="mb-20 pb-20 pt-3" formArrayName="references">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <h3>References </h3>
+            <span fxFlex></span>
+            <button mat-icon-button (click)="addReferences()" color="primary" class="w-0">
+              <mat-icon class="add-claim-icon mt-0">add</mat-icon>
+            </button>
+          </div>
+          <div>
+            <div *ngFor="let reference of references.controls; let i = index">
+              <div class="row">
+                <!-- input -->
+                <div class="col-11 pr-0">
+                  <mat-form-field floatLabel='never' class="full-width" [formGroupName]="i" appearance="outline">
+                    <span id="qa-prefix" class="prefix-idx-custom" matPrefix>{{i+1}} </span>
+                    <input matInput placeholder="Add a Reference" formControlName="references" value="" (keyup.enter)="addReferences();$event.target.blur();" />
+                    <mat-icon matSuffix class="icon-delete-custom" (click)="removeReferences(i)" color="warn">delete</mat-icon>
+                  </mat-form-field>
+                </div>
+                <!-- delete claim -->
+                <!-- <div class="col-1 p-0">
+                  <button matSuffix mat-icon-button (click)="removeReferences(i)" color="warn" class="w-0">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <!--  <div *ngIf="claims.controls.length == 0" class="bg-light">Add claims</div> -->
+        </div>
+        <div>
+          <h5 class="pt-4">Hashtags <mat-icon>info</mat-icon>
+          </h5>
+        </div>
+        <mat-form-field class="hashtag-chip-list" appearance="fill">
+          <mat-chip-list #hashtagChipList aria-label="Hashtags selection">
+            <mat-chip *ngFor="let hashtag of hashtags" (removed)="removeHashtag(hashtag)">
+              {{hashtag.displayName}}
+              <!-- <button > -->
+              <!-- <mat-icon>cancel</mat-icon> -->
+              <span class="chip-rmv" matChipRemove>X</span>
+              <!-- </button> -->
+            </mat-chip>
+            <input placeholder="New Hashtag" [matChipInputFor]="hashtagChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addHashtag($event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <div>
+          <h5 class="pt-4">Reliability <mat-icon>info</mat-icon>
+          </h5>
+        </div>
+        <div id="ReliabilityTypes">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-select class="select-optional" (selectionChange)="chooseReliablity($event)">
+              <!-- <option value="" disabled selected>Reliability</option> -->
+              <mat-option *ngFor="let type of reliabilityTypes" [value]="type.id" [ngStyle]="{'background': type.color}">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <h5 class="pt-4">Fact Checker tags <mat-icon>info</mat-icon>
+          </h5>
+        </div>
+        <div id="factCheckerTags">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-select class="select-optional" (selectionChange)="addSelectedfactCheckerTag($event)">
+              <!-- <option value="" disabled selected>Reliability</option> -->
+              <mat-option *ngFor="let type of factCheckerTags" [value]="type.id">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="hashtag-chip-list" appearance="fill">
+            <mat-chip-list #hashtagChipList aria-label="Fact Checker tags selection">
+              <mat-chip *ngFor="let selectedfactCheckerTag of selectedfactCheckerTags" (removed)="removeSelectedfactCheckerTag(selectedfactCheckerTag)">
+                {{selectedfactCheckerTag.name}}
+                <span class="chip-rmv" matChipRemove>X</span>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+        <div>
+          <h5 class="pt-4">Topics <mat-icon>info</mat-icon>
+          </h5>
+        </div>
+        <mat-form-field class="hashtag-chip-list" appearance="fill">
+          <mat-chip-list #topicsChipList aria-label="Topic selection">
+            <mat-chip *ngFor="let topic of topics" (removed)="removeTopic(topic)">
+              {{topic.name}}
+              <!-- <button > -->
+              <!-- <mat-icon>cancel</mat-icon> -->
+              <span class="chip-rmv" matChipRemove>X</span>
+              <!-- </button> -->
+            </mat-chip>
+            <input placeholder="New Topic" [matChipInputFor]="topicsChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addTopic($event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <div class="mb-20 pb-20 pt-3" formArrayName="questionsAndAnswers">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <h3>Q&A </h3>
+            <span fxFlex></span>
+            <button mat-icon-button (click)="addQuestionAndAnswer()" color="primary" class="w-0">
+              <mat-icon class="add-claim-icon mt-0">add</mat-icon>
+            </button>
+          </div>
+          <div>
+            <div *ngFor="let item of questionsAndAnswers.controls; let i = index">
+              <div class="row">
+                <!-- input -->
+                <div class="col-11 pr-0">
+                  <mat-form-field floatLabel='never' class="full-width" [formGroupName]="i" appearance="outline">
+                    <span id="qa-prefix" class="prefix-idx-custom" matPrefix>{{i+1}}</span>
+                    <input matInput placeholder="Add a Question" formControlName="question" value="" (keyup.enter)="addQuestionAndAnswer();$event.target.blur();" />
+                    <mat-icon matSuffix class="icon-delete-custom" (click)="removeQuestionAndAnswer(i)" color="warn">delete</mat-icon>
+                  </mat-form-field>
+                </div>
+                <!-- delete q%a -->
+                <!-- <div class="col-1 p-0">
+                  <button matSuffix mat-icon-button (click)="removeQuestionAndAnswer(i)" color="warn" class="w-0">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div> -->
+              </div>
+              <div class="row" id='answer'>
+                <!-- input -->
+                <div class="col-11 pr-0">
+                  <mat-form-field floatLabel='never' class="full-width" [formGroupName]="i" appearance="outline">
+                    <input #inputanswer maxlength="250" matInput placeholder="Add an Answer" formControlName="answer" value="" />
+                    <mat-hint align="end">{{inputanswer.value?.length || 0}}/250</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <p>
+            <mat-checkbox formControlName="isAnonymousValidator">Anonymous Certification<mat-icon>info</mat-icon>
+            </mat-checkbox>
+          </p>
+          <div class="mb-10">
+            <app-user-summary></app-user-summary>
+          </div>
+
+
+          <div class="row mb-10">
+            <div class="col-6">
+              <button mat-raised-button (click)="submitValidation()" color="primary" [disabled]="validateForm.invalid">
+                Submit
+              </button>
+            </div>
+            <div class="cursor-pointer font-size-small color-gray mt-3 col-6 text-right" [routerLink]="['/result', postId, 'twitter']" [queryParams]="{'link':postLink }" queryParamsHandling="preserve" routerLinkActive="router-link-active">
+              <span class="text-decoration-underline">View Validation</span>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #submittedForm>
+  <div fxLayout="row" fxLayoutAlign="center center" class="message p-20" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <h3 class="text-center">
+        Thank you for your opinion!
+      </h3>
+      <div class="cursor-pointer font-size-small color-gray mt-3 text-decoration-underline" [routerLink]="['/result', postId, 'twitter']" [queryParams]="{'link':postLink }" queryParamsHandling="preserve" routerLinkActive="router-link-active">
+        View Validation
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #alreadyValidatedTemplate>
+  <div fxLayout="row" fxLayoutAlign="center center" class="message warn p-20" fxLayoutGap="10px">
+
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <h3 class="text-center">
+        You already validated this post.
+      </h3>
+      <div class="cursor-pointer font-size-small color-gray mt-3 text-decoration-underline" [routerLink]="['/result', postId, 'twitter']" [queryParams]="{'link':postLink }" queryParamsHandling="preserve" routerLinkActive="router-link-active">
+        View Validation
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <app-embeded-loader></app-embeded-loader>
+</ng-template>

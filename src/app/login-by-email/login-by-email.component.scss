@@ -1,0 +1,44 @@
+#login-form {
+    padding: 0 20%;
+
+    .field {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+    .title {
+        margin-top: 3rem;
+        margin-bottom: 4rem;
+    }
+
+    mat-form-field {
+        position: relative;
+    }
+
+
+    input {
+       background: #f1f1f1;
+       border: 0; // 1px solid gray
+       border-radius: 20px;
+       padding: 14px 66px;
+
+     }
+  .svg-inputIcon{
+    position: absolute;
+    left: 16px;
+    top: 8px;
+  }
+}
+
+
+// :host ::ng-deep .mat-form-field-wrapper {
+//     padding-bottom: 0!important;
+// }
+
+// :host ::ng-deep .mat-form-field-ripple {
+//     background-color: none;
+
+// }
+
+// :host ::ng-deep .mat-form-field-underline {
+//      height:0;
+//  }

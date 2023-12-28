@@ -1,0 +1,74 @@
+
+/* drop down */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background: none!important;
+  padding: 0  0 0.3em 0!important;
+  .mat-form-field-infix {
+    padding:  0 0.6em 0 0;
+    width: unset;
+    &::after {
+      margin-top: 0!important;
+    }
+  }
+}
+
+mat-icon {
+  position: absolute;
+  // top: 12px;
+  // left: 14px;
+  color: #b2b2b2;
+
+  &.right-icon {
+    right: 14px;
+    left: unset !important;
+  }
+
+  height: 40px  !important;
+    width: 60px !important;
+
+}
+.mat-menu-content .mat-icon{
+  position: inherit;
+  height: 24px  !important;
+  width: 24px !important;
+}
+.form-inputs mat-icon {
+  padding: 14px 0px;
+}
+
+button.mat-raised-button {
+  margin-top: 1rem;
+  color: white;
+  background: linear-gradient(to right, #6a1a3b 0%, #be3365 100%);
+  // border: 1px solid gray;
+  color:white!important;
+  border:0;
+  box-shadow: none;
+  border-radius: 20px;
+  padding: 4px 0;
+  &:disabled {
+      font-weight: bold;
+      color: #7F8183 !important;
+      background: #CFD0D1 !important;
+      border:0;
+  }
+}
+.date-picker-input .mat-icon-button {
+     height: 1.5em !important;
+    }
+
+.color-primary {
+  color: #8c2b5c;
+}
+.text-word-wrap{
+  word-wrap: break-word;
+}
+.mat-tab-labels .mat-tab-label-active {
+  opacity: inherit;
+}
+.mat-tab-body-content {
+  overflow: visible !important;
+}
+.mat-checkbox-layout{
+  margin-bottom: 0px !important;
+}

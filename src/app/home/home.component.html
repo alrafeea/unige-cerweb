@@ -1,0 +1,11 @@
+<mat-list role="list">
+  <mat-list-item
+    role="listitem"
+    [routerLink]="['../../../' + item.state]"
+    routerLinkActive="router-link-active"
+    color="primary"
+    *ngFor="let item of menu$ | async as list"
+  >
+    <a class="menu-item"> {{ item.title }}</a>
+  </mat-list-item>
+</mat-list>

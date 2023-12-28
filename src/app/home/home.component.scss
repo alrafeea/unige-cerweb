@@ -1,0 +1,16 @@
+@import '../../assets/theme/theme';
+
+.menu-item {
+  font-size: 1.3rem;
+  text-align: center;
+  margin: 10px 0;
+  width: 100%;
+
+  padding: 10px 0;
+  cursor: pointer;
+  color: map-get($mat-primary, main );
+  &:hover{
+    background-color: #f7f7f7;
+  }
+
+}

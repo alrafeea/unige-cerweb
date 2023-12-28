@@ -1,0 +1,20 @@
+<div class="position-relative">
+  <h3 class="title text-center pt-5 pb-3 color-primary">Validation Result</h3>
+
+  <div  class="text-right">
+    <a  class="color-link pr-3 cursor-pointer"data-toggle="modal" data-target=".post-source-modal">Source</a>
+    <div  class="modal fade post-source-modal"  tabindex="-1" role="dialog"  aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog  text-left">
+        <div class="modal-content p-3"><p class="text-muted">Source:</p><p class="text-word-wrap">{{postLink}}</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-tab-group class="justify-content-center">
+  <mat-tab label="Experts Validation">
+    <app-post-expert-result></app-post-expert-result>
+  </mat-tab>
+  <mat-tab label="Users Validation">
+    <app-post-user-result></app-post-user-result>
+  </mat-tab>
+</mat-tab-group>

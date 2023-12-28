@@ -1,0 +1,26 @@
+<ng-container *ngIf="auth.user$ | async as user; else noUser">
+  <!-- <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <div fxFlex="130px" style="position: relative;">
+      <img *ngIf="user.photoURL" class="user-thumb " [src]="user.photoURL" alt="" />
+      <mat-icon *ngIf="!user.photoURL" color="primary">person</mat-icon>
+    </div>
+    <div fxFlex="70">
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10x">
+        <h3 class="mb-10">{{ user.displayName }}</h3>
+        <p>{{ user.email }}</p>
+        <button class="px-2" mat-raised-button color="primary" routerLink="/user-profile">
+          View profile
+        </button>
+      </div>
+    </div>
+    <span fxFlex></span>
+    <button mat-raised-button (click)="auth.logOut()">Logout</button>
+  </div> -->
+</ng-container>
+<ng-template #noUser>
+  <span class="font-size-small color-gray">You are not logged in</span>
+  <button class="mx-2" mat-raised-button color="primary" routerLink="/login">
+    Login
+  </button>
+  <!-- <div class="cursor-pointer font-size-small color-gray mt-3" routerLink="/login">Sign In</div> -->
+</ng-template>

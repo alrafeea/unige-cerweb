@@ -1,0 +1,123 @@
+<div id="singnup-form" [formGroup]="signUpForm" class="text-center pb-3 form-inputs">
+  <h2 class="title color-primary">Create Account</h2>
+  <div class="font-size-small warn hidden color-warn pb-2">
+    {{errorMessage}}
+  </div>
+  <div class="d-flex">
+<!--firstName-->
+    <div class="field input-fill">
+      <mat-icon  *ngIf="signUpForm.get('firstName').hasError('required') && signUpForm.get('firstName').touched; else FirstnameReq"
+ color="primary">person</mat-icon>
+ <ng-template #FirstnameReq>
+    <mat-icon color="">person</mat-icon>
+    </ng-template>
+
+      <input matInput placeholder="First name" formControlName="firstName" value="" autocomplete="off" />
+    </div>
+<!--last name-->
+    <div style="position: relative;" class="field input-fill ml-2">
+      <input matInput placeholder="Last name" formControlName="lastName" value="" autocomplete="off" />
+    </div>
+  </div>
+<!--email-->
+  <div class="field input-fill">
+    <mat-icon  *ngIf="(signUpForm.get('email').hasError('required') || signUpForm.get('email').hasError('pattern')) &&  signUpForm.get('email').touched; else EmailReq"
+    color="primary">mail</mat-icon>
+    <ng-template #EmailReq>
+    <mat-icon color="">mail</mat-icon>
+    </ng-template>
+    <input matInput placeholder="Email" formControlName="email" value="" autocomplete="off" />
+      <mat-error *ngIf="signUpForm.get('email').hasError('pattern')">Invalid email addres</mat-error>
+  </div>
+<!--password-->
+  <div class="field input-fill">
+   <!--   <mat-icon  *ngIf="(signUpForm.get('password').hasError('required')  || signUpForm.get('password').hasError('minlength')) && signUpForm.get('password').touched; else passwordReq"
+    color="primary">lock</mat-icon> -->
+    <img *ngIf="(signUpForm.get('password').hasError('required')  || signUpForm.get('password').hasError('minlength')) && signUpForm.get('password').touched; else passwordReq"
+      src="../../assets/images/Password_SigninRed.svg" width="22px" class="svg-inputIcon">
+    <ng-template #passwordReq>
+      <img src="../../assets/images/Password_Signin.svg" width="22px" class="svg-inputIcon">
+    </ng-template>
+
+      <input matInput placeholder="Password" formControlName="password" value="" autocomplete="off"
+      [type]="visibility ? 'text' : 'password'" />
+    <mat-icon class="right-icon" (click)="visibility =!visibility">
+      {{visibility ? 'visibility_off': 'visibility'}}</mat-icon>
+
+    <mat-error *ngIf="signUpForm.get('password').hasError('minlength')">Password must be at least 8 characters long</mat-error>
+
+  </div>
+<!--rePassword-->
+  <div class="field input-fill">
+    <img *ngIf="(signUpForm.get('rePassword').hasError('required')  || signUpForm.get('rePassword').hasError('mustMatch')) && signUpForm.get('rePassword').touched; else repasswordReq"
+         src="../../assets/images/Password_SigninRed.svg" width="22px" class="svg-inputIcon">
+    <ng-template #repasswordReq>
+      <img src="../../assets/images/Password_Signin.svg" width="22px" class="svg-inputIcon">
+    </ng-template>
+    <input matInput placeholder="Re-Password" formControlName="rePassword" value=""
+      [type]="visibility ? 'text' : 'password'"  autocomplete="off"/>
+    <mat-icon class="right-icon" (click)="visibility =!visibility">
+      {{visibility ? 'visibility_off': 'visibility'}}</mat-icon>
+  <mat-error *ngIf="signUpForm.get('rePassword').hasError('mustMatch')">Passwords do not match</mat-error>
+
+  </div>
+
+
+<div class="field mb-0">
+ <div class="selection-data d-flex">
+
+    <mat-form-field floatLabel='never' class="w-50 pr-2 date-picker-input selection-data">
+      <input id="date-input" class="selection-datainput" matInput
+             [matDatepicker]="picker" placeholder="Date of birth"
+             formControlName="dateOfBirth" (dateChange)="dateChange()" autocomplete="off">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="!validDateFormat">Please enter a valid date MM/dd/YYYY</mat-error>
+    </mat-form-field>
+
+
+     <mat-form-field appearance="fill" class="w-50 pl-5 mt-10 ">
+<img src="../../assets/images/icon-gender.svg" width="25px" class="svg-inputImg">
+      <select matNativeControl formControlName="gender" class="select-optional">
+        <option value="" disabled selected>Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </mat-form-field>
+
+  </div>
+  <p class="mat-error custom-error" *ngIf="!validDateAge">Users under 18 are not allowed to sign up </p>
+
+</div>
+
+  <div class="d-flex">
+    <mat-form-field appearance="fill" class="w-50 pr-2 pl-4">
+      <mat-icon style="position: absolute;
+    left: -30px;
+    top: -22px; font-size:28px;" color="">public</mat-icon>
+      <select matNativeControl formControlName="country" class="select-optional">
+        <option value="" disabled selected>Country</option>
+        <option *ngFor="let country of countries" value="{{country.name}}">
+          {{country.name}}
+        </option>
+      </select>
+    </mat-form-field>
+  </div>
+
+    <!-- Terms and Conditions content is not ready yet -->
+    <div class="pt-5">
+        <mat-checkbox [color]="'primary'" formControlName="acceptTerms"></mat-checkbox>
+      <span> I have read and accepted
+      the <a href="https://www.certify.community/terms" target="_blank">Terms and Conditions</a>
+        and  the <a href="https://www.certify.community/privacy" target="_blank">Privacy Policy</a>
+      </span>
+    </div>
+  <button class="mat-raised-button cursor-pointer" (click)="signUp()"
+          color="primary"
+          [disabled]="!signUpForm.controls.acceptTerms.value || signUpForm.invalid">
+    Submit
+  </button>
+
+  <div class="cursor-pointer font-size-small color-gray mt-3" routerLink="/login">Already have an account? Sign in<mat-icon class="p-0 w-10">arrow_right_alt</mat-icon> </div>
+</div>

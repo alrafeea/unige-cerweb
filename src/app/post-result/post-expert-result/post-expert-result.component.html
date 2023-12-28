@@ -1,0 +1,186 @@
+<div *ngIf="loading; else loading">
+
+
+  <ng-container *ngIf="post$ | async as post; else noPost">
+
+    <div class="reviews-container" *ngIf="reviews$ | async as reviews">
+      <ng-container *ngIf="reviews.length > 0; else noPost">
+        <div *ngIf="post.counters.expertsValidations > 1" class="counter-holder">
+          <!-- number of validation <Counter> -->
+          <div class="counter" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <h2 class="m-0 navs">
+              <!--arrow left -->
+              <mat-icon NguCarouselPrev class="nav left" color="primary" [class.hide]="leftNavDisabled" (click)="
+                    !leftNavDisabled
+                      ? stepsCarousel.moveTo(stepsCarousel.currentSlide - 1)
+                      : null
+                  ">
+                chevron_left
+              </mat-icon>
+
+              <h2 class="expert-review-counter font-weight-bold d-inline">
+                {{ stepsCarousel.currentSlide + 1 }}/{{ post.counters.expertsValidations }}
+              </h2>
+
+              <!--arrow right -->
+              <mat-icon NguCarouselNext color="primary" class="nav right" [class.hide]="rightNavDisabled" (click)="
+                    !rightNavDisabled
+                      ? stepsCarousel.moveTo(stepsCarousel.currentSlide + 1)
+                      : null
+                  ">
+                chevron_right
+              </mat-icon>
+            </h2>
+            <h6 class="color-gray pl-5">Validations</h6>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <ngu-carousel #stepsCarousel [inputs]="carouselBanner" [dataSource]="reviews" (onMove)="onCarouselMove(stepsCarousel.isFirst,stepsCarousel.isLast)">
+            <ngu-item *nguCarouselDef="let rev; let i = index">
+
+              <!-- <div>
+              <i class="rating-icon cert-icon-{{rev.rating.icon}}"></i>
+          </div> -->
+
+              <div class="rev-item " fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+                <!-- Review data -->
+                <div class="text-left min-height-345 w-100">
+
+                  <!-- Expert logo + name and the rating name -->
+                  <div class="rel-lbl-{{rev.reliabilityType.id}}">
+                    <div class="expert mb-2 p-0">
+                      <div class="row">
+                        <!-- <div class="d-inline pl-3">
+                        <img class="expert-logo" [src]="rev.expert.logo" alt="logo" />
+                      </div> -->
+                        <div *ngIf="!rev.isAnonymousValidator" class="d-inline pl-4">
+                          <span class="expert-name font-weight-bold d-block">{{rev.user.displayName}} <mat-icon class="cursor-pointer text-primary pl-2 ">link</mat-icon>
+                          </span>
+                          <span class="expert-name text-muted d-block pt-0"> {{rev.expert.name}}</span>
+                        </div>
+                        <div *ngIf="rev.isAnonymousValidator" class="d-inline pl-4">
+                          <span class="text-muted  pt-0"> Anonymous</span>
+                        </div>
+                      </div>
+                      <div>
+                        <span class="text-muted pt-0 txt-small"> {{rev.createdAt | prettyDate}}</span>
+                      </div>
+                    </div>
+
+                    <div class="row pt-3">
+                      <span class="f-text pl-4" style="width: 90%;">
+                        <p>{{rev.summary}}</p>
+                      </span>
+                    </div>
+                  </div>
+                  <mat-accordion class="example-headers-align" multi>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          More
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+
+                      <div class="expansion-panel-body">
+                        <div>
+                          <mat-chip-list #factCheckerTags aria-label="Fact Checker tags">
+                            <mat-chip *ngFor="let item of rev.factCheckerTags">
+                              {{item.name}}
+                            </mat-chip>
+                          </mat-chip-list>
+                        </div>
+
+                        <div class="row pt-3">
+                          <span class="f-text pl-4">
+                            <p>{{rev.context}}</p>
+                            <p>{{rev.analysis}}</p>
+                          </span>
+                        </div>
+
+                        <mat-list role="list">
+                          <mat-list-item class="color-gray pre-line mlist-item" role="listitem" *ngFor="let reference of rev.references; let i = index"><span class="f-text--s">{{i+1}}. {{ reference.references }}</span></mat-list-item>
+                        </mat-list>
+
+                        <div class="row pt-3">
+                          <span class="f-text pl-4">
+                            <h4 class="m-0 d-inline">Lable:</h4>
+                            <h5 class="m-0 d-inline ml-1" [ngStyle]="{ color: rev.reliabilityType.color }">{{rev.reliabilityType.name}}</h5>
+                          </span>
+                        </div>
+
+                        <!-- <div>
+    <mat-chip-list #topics aria-label="topics tags">
+      <mat-chip *ngFor="let item of rev.topics">
+        {{item.name}}
+      </mat-chip>
+    </mat-chip-list>
+  </div> -->
+                        <div class="row pt-3">
+                          <mat-chip-list class="pl-4" #hashtags aria-label="hashtags tags">
+                            <mat-chip *ngFor="let item of rev.hashtags">
+                              #{{item.name}}
+                            </mat-chip>
+                          </mat-chip-list>
+                        </div>
+
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+
+                  <mat-accordion class="example-headers-align" multi>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Q&A
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          <!-- View Q&A -->
+                          <!-- <mat-icon>account_circle</mat-icon> -->
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <mat-list>
+                        <mat-list-item *ngFor="let item of rev.questionsAndAnswers; let i = index">
+                          <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
+                          <!-- <div mat-line>{{i+1}}</div> -->
+                          <div mat-line class="f-que">{{item.question}}</div>
+                          <div mat-line class="f-ans"> {{item.answer}} </div>
+                        </mat-list-item>
+                      </mat-list>
+
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+
+
+
+
+              </div>
+            </ngu-item>
+          </ngu-carousel>
+        </div>
+
+      </ng-container>
+
+    </div>
+  </ng-container>
+</div>
+
+
+
+<ng-template #loading>
+  Please wait...
+</ng-template>
+
+<ng-template #noPost>
+  <div class="message warn p-20 text-center pt-5 color-dark-gray" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <h4 class="mt-3">
+        This post has not been validated by any experts yet!
+      </h4>
+    </div>
+    <button class="mt-4" mat-raised-button color="primary" [routerLink]="['/validate', postId, source]" [queryParams]="{'link':postLink }" queryParamsHandling="preserve" routerLinkActive="router-link-active">
+      Validate this post
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,150 @@
+<ng-container *ngIf="!submitted; else submittedForm">
+  <div *ngIf="loading === false; else loadingTemplate">
+    <div *ngIf="alreadyValidated === false; else alreadyValidatedTemplate">
+      <div [formGroup]="validateForm" class="p-20">
+        <h4 class="text-center color-primary p-2">Certification</h4>
+
+        <div class="text-right">
+          <a class="color-link  pr-3 cursor-pointer" data-toggle="modal" data-target=".post-source-modal-sm">Source</a>
+          <div class="modal fade post-source-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog text-left">
+              <div class="modal-content p-3">
+                <p class="text-muted">Source:</p>
+                <p class="text-word-wrap">{{postLink}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h5 class="pt-4">Reliability <mat-icon>info</mat-icon></h5>
+        </div>
+        <div id="ReliabilityTypes">
+          <mat-form-field appearance="fill" class="w-100">
+          <mat-select class="select-optional" (selectionChange)="chooseReliablity($event)">
+            <!-- <option value="" disabled selected>Reliability</option> -->
+            <mat-option *ngFor="let type of reliabilityTypes" [value]="type.id" [ngStyle]="{'background': type.color}">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+        <div>
+          <h5 class="pt-4">Fact Checker tags <mat-icon>info</mat-icon></h5>
+        </div>
+        <div id="factCheckerTags">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-select class="select-optional" (selectionChange)="addSelectedfactCheckerTag($event)">
+            <!-- <option value="" disabled selected>Reliability</option> -->
+            <mat-option *ngFor="let type of factCheckerTags" [value]="type.id">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+          <mat-form-field class="hashtag-chip-list" appearance="fill">
+            <mat-chip-list #hashtagChipList aria-label="Fact Checker tags selection">
+              <mat-chip *ngFor="let selectedfactCheckerTag of selectedfactCheckerTags" (removed)="removeSelectedfactCheckerTag(selectedfactCheckerTag)">
+                {{selectedfactCheckerTag.name}}
+                  <span class="chip-rmv" matChipRemove>X</span>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+        <div>
+          <h5 class="pt-4">Hashtags <mat-icon>info</mat-icon></h5>
+        </div>
+        <mat-form-field class="hashtag-chip-list" appearance="fill">
+          <mat-chip-list #hashtagChipList aria-label="Hashtags selection">
+            <mat-chip *ngFor="let hashtag of hashtags" (removed)="removeHashtag(hashtag)">
+              {{hashtag.displayName}}
+              <!-- <button > -->
+                <!-- <mat-icon>cancel</mat-icon> -->
+                <span class="chip-rmv" matChipRemove>X</span>
+              <!-- </button> -->
+            </mat-chip>
+            <input placeholder="New Hashtag"
+                   [matChipInputFor]="hashtagChipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="addHashtag($event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <!-- <div
+          fxLayout="row wrap"
+          class="mb-20"
+          fxLayoutAlign="start start"
+          fxLayoutGap="10px"
+        >
+
+          <div
+            fxFlex="45"
+            fxLayout="row"
+            *ngFor="let item of types$ | async as list"
+            fxLayoutAlign="start center"
+            fxLayoutGap="5"
+            (click)="chooseRating(item)"
+            class="type-item"
+            [class.selected]="
+              type !== null && type.value !== null && type.value.id == item.id
+            "
+            [class.not-selected]="
+              type == null || type.value == null || type.value.id != item.id
+            "
+          >
+            <div fxFlex="35%">
+              <i class="cert-icon-{{ item.icon }}"> </i>
+            </div>
+            <div fxFlex="65%" class="type-name">
+              {{ item.name }}
+            </div>
+          </div>
+        </div> -->
+        <mat-divider></mat-divider>
+        <div class="mb-10">
+          <app-user-summary></app-user-summary>
+        </div>
+
+        <div class="row mb-10">
+          <div class="col-6">
+            <button mat-raised-button (click)="submitValidation()" color="primary" [disabled]="validateForm.invalid">
+              Submit
+            </button>
+          </div>
+          <div class="cursor-pointer font-size-small color-gray col-6 text-right" [routerLink]="['/result', postId, source]" [queryParams]="{'link':postLink }" queryParamsHandling="preserve" routerLinkActive="router-link-active">
+            <span class="text-decoration-underline">View Validation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #submittedForm>
+  <div fxLayout="row" fxLayoutAlign="center center" class="message p-20" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <h3 class="text-center">
+        Thank you for your opinion!
+      </h3>
+      <div class="cursor-pointer font-size-small color-gray mt-3 text-decoration-underline" [routerLink]="['/result', postId, source]" [queryParams]="{'link':postLink }" queryParamsHandling="preserve" routerLinkActive="router-link-active">
+        View Validation
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #alreadyValidatedTemplate>
+  <div fxLayout="row" fxLayoutAlign="center center" class="message warn p-20" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <h3 class="text-center">
+        You already validated this post.
+      </h3>
+      <div class="cursor-pointer font-size-small color-gray mt-3 text-decoration-underline" [routerLink]="['/result', postId, source]" [queryParams]="{'link':postLink }" queryParamsHandling="preserve" routerLinkActive="router-link-active">
+        View Validation
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <app-embeded-loader></app-embeded-loader>
+</ng-template>

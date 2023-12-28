@@ -1,0 +1,55 @@
+<div *ngIf="loading as post; else loading">
+  <ng-container *ngIf="post$ | async as post; else noPost">
+    <ng-container *ngIf="post.counters.usersValidations; else noPost">
+      <div class="row">
+        <div class="col-lg d-flex justify-content-center">
+          <app-reliability-chart [data]='reliabilityTypePerc'></app-reliability-chart>
+        </div>
+      </div>
+      
+
+      <div class="row">
+        <div class="col-lg d-flex justify-content-center">
+          <div>
+            <mat-chip-list #factCheckerTags aria-label="Fact Checker tags selection">
+              <mat-chip *ngFor="let item of fct">
+                {{item.name}}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-lg d-flex justify-content-center">
+          <div>
+            <mat-chip-list #hashtags>
+              <mat-chip *ngFor="let item of htgs" [ngStyle]="{ backgroundColor: item.color }" style="color: black;">
+                {{item.name}}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  Please wait...
+</ng-template>
+
+<ng-template #noPost>
+  <div class="message warn p-20 text-center pt-5 color-dark-gray" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <h4 class="mt-3">
+        This post has not been validated by any users yet!
+      </h4>
+    </div>
+    <button class="mt-4" mat-raised-button color="primary" [routerLink]="['/validate', postId, source]" [queryParams]="{'link':postLink }" queryParamsHandling="preserve" routerLinkActive="router-link-active">
+      Validate this post
+    </button>
+  </div>
+</ng-template>

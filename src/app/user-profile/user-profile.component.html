@@ -1,0 +1,40 @@
+<ng-container *ngIf="auth.user$ | async as user">
+  <div class="text-center user-profile mt-5 pt-5">
+    <!-- style ="position: absolute; top:20%; left: 42%" -->
+    <div class="image-wrapper shadow mt-5 mb-2">
+      <img *ngIf="user.photoURL" class="user-thumb" [src]="user.photoURL" alt="" />
+      <mat-icon *ngIf="!user.photoURL" color="primary">person</mat-icon>
+    </div>
+    <div>
+      <div>
+        <h3 class="mb-10 color-dark-gray text-center">{{ user.displayName }}</h3>
+        <br>
+        <h3 class="mb-10 color-dark-gray text-center">{{ user.email }}</h3>
+        <!-- Expert organization name -->
+        <p class="text-muted" *ngIf="user.roles && user.roles.expert">
+          <img  *ngIf="user.expert.logo" [src]="user.expert.logo" alt="logo" width="30px"/>
+          {{ user.expert.name }}
+        </p>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="user-profile mt-5 pt-5">
+    <div class="row m-0">
+      <div class="col-6">
+        <span class="text-muted">
+          Validations:
+          <span *ngIf="user.myValidatedNews && user.myValidatedNews.length">{{user.myValidatedNews.length}}</span>
+          <span *ngIf="!(user.myValidatedNews && user.myValidatedNews.length)">0</span>
+
+        </span>
+      </div>
+      <div class="col-6">
+        <span class="text-muted" *ngIf="user.createdAt"> Joined since: {{user.createdAt.toDate() | date }}</span>
+      </div>
+    </div>
+
+  </div>
+</ng-container>
